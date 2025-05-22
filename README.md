@@ -8,13 +8,6 @@
 - جاسازی فرم Google Forms برای دریافت نوبت‌ها
 - دکمه تماس مستقیم با پشتیبانی از طریق واتساپ
 
-## پیش‌نمایش
-
-![Preview](https://via.placeholder.com/600x400?text=PDR+Appointment+Form)
-
-## لینک فرم
-
-[مشاهده فرم نوبت‌دهی](https://docs.google.com/forms/d/e/1FAIpQLScqpnOCb7CIaM5ERYaGDu3MbCj0lknkXYjeA7FNkDhSuufOIA/viewform)
 
 ## پشتیبانی
 
