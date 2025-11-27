@@ -1,148 +1,517 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>نوبت‌دهی صافکاری PDR</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Vazirmatn', sans-serif;
-      background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
-      color: #333;
-      text-align: center;
-      padding: 30px;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>صافکاری PDR عمران سنتر | Omran Center</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Vazirmatn -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background-color: white;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      animation: fadeInUp 1s ease-out;
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            glow: 'rgba(245, 158, 11, 0.5)'
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            card: 'rgba(30, 41, 59, 0.7)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                    screens: {
+                        'xs': '375px',
+                    }
+                }
+            }
+        }
+    </script>
 
-    img {
-      width: 160px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      animation: zoomIn 1s ease;
-    }
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #020617;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px; /* Thinner for mobile aesthetics */
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 4px;
+        }
 
-    h1 {
-      font-size: 28px;
-      color: #222;
-      margin-bottom: 25px;
-      animation: fadeIn 1s ease 0.3s forwards;
-      opacity: 0;
-    }
+        .hero-bg {
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.95)), url('https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            /* Scroll on mobile for performance, Fixed on Desktop */
+            background-attachment: scroll;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-bg {
+                background-attachment: fixed;
+            }
+        }
 
-    iframe {
-      width: 100%;
-      height: 700px;
-      border: none;
-      border-radius: 16px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-      animation: fadeIn 1s ease 0.6s forwards;
-      opacity: 0;
-    }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6); /* Slightly more opaque for mobile readability */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
 
-    .button {
-      display: inline-block;
-      margin: 8px;
-      padding: 12px 28px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      text-decoration: none;
-      color: white;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease 0.9s forwards;
-    }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
 
-    .whatsapp {
-      background-color: #25D366;
-    }
-
-    .whatsapp:hover {
-      background-color: #1ab44b;
-      transform: scale(1.05);
-    }
-
-    .telegram {
-      background-color: #0088cc;
-    }
-
-    .telegram:hover {
-      background-color: #0077b5;
-      transform: scale(1.05);
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 16px;
-      color: #444;
-    }
-
-    /* انیمیشن‌ها */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @media (max-width: 600px) {
-      iframe {
-        height: 500px;
-      }
-
-      h1 {
-        font-size: 22px;
-      }
-    }
-  </style>
+        .gradient-text {
+            background: linear-gradient(to right, #fcd34d, #f59e0b, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .blob {
+            position: absolute;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
 </head>
-<body>
+<body class="text-slate-200">
 
-  <div class="container">
-    <img src="logo.png" alt="لوگوی عمران سنتر" />
-    <h1>فرم نوبت‌دهی صافکاری PDR - عمران سنتر</h1>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-dark-900/90 backdrop-blur-md border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 md:h-24 transition-all duration-300" id="nav-container">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer select-none" onclick="window.scrollTo(0,0)">
+                    <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg flex items-center justify-center text-black shadow-lg shadow-gold-500/20">
+                        <i class="fa-solid fa-car-burst text-lg md:text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-xl md:text-2xl tracking-tight text-white leading-none">عمران <span class="text-gold-500">سنتر</span></span>
+                        <span class="text-[9px] md:text-[10px] text-gray-400 tracking-widest uppercase mt-0.5">PDR & Detailing Center</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-1 space-x-reverse bg-white/5 rounded-full px-2 py-1 border border-white/5">
+                        <a href="#home" class="hover:text-gold-400 hover:bg-white/5 px-4 py-2 rounded-full text-sm font-medium transition-all">خانه</a>
+                        <a href="#services" class="hover:text-gold-400 hover:bg-white/5 px-4 py-2 rounded-full text-sm font-medium transition-all">خدمات</a>
+                        <a href="#process" class="hover:text-gold-400 hover:bg-white/5 px-4 py-2 rounded-full text-sm font-medium transition-all">مراحل کار</a>
+                        <a href="#gallery" class="hover:text-gold-400 hover:bg-white/5 px-4 py-2 rounded-full text-sm font-medium transition-all">نمونه کارها</a>
+                    </div>
+                </div>
 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfYp71FT7g6Yy-bjyx5dV2x14j_Q6CtasBObhGpZ_Q5us1e-g/viewform?usp=header" allowfullscreen></iframe>
+                <div class="hidden md:block">
+                    <a href="#contact" class="group relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-bold text-black transition-all duration-300 bg-gold-500 rounded-lg hover:bg-gold-400 hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                        <span class="relative flex items-center gap-2">
+                            رزرو وقت <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </span>
+                    </a>
+                </div>
 
-    <footer>
-      <p>ارتباط با پشتیبانی:</p>
-      <a class="button whatsapp" href="https://wa.me/989368228824" target="_blank">واتساپ</a>
-      <a class="button telegram" href="https://t.me/ParsiHelp" target="_blank">تلگرام</a>
+                <!-- Mobile menu button -->
+                <div class="flex md:hidden">
+                    <button onclick="toggleMenu()" type="button" class="text-white p-2 focus:outline-none touch-manipulation">
+                        <i id="menu-icon" class="fa-solid fa-bars-staggered text-2xl transition-transform duration-300"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Improved) -->
+        <div class="hidden md:hidden bg-dark-900/95 backdrop-blur-xl border-t border-gray-800 absolute w-full left-0 transition-all duration-300 ease-in-out origin-top shadow-2xl" id="mobile-menu">
+            <div class="px-4 pt-4 pb-6 space-y-3 text-center">
+                <a href="#home" onclick="toggleMenu()" class="block px-3 py-3 rounded-xl text-base font-bold bg-white/5 text-white active:scale-95 transition-transform">خانه</a>
+                <a href="#services" onclick="toggleMenu()" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/5 active:scale-95 transition-transform">خدمات</a>
+                <a href="#gallery" onclick="toggleMenu()" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-300 hover:bg-white/5 active:scale-95 transition-transform">نمونه کارها</a>
+                <a href="#contact" onclick="toggleMenu()" class="block px-3 py-4 rounded-xl text-lg font-black text-black bg-gold-500 shadow-lg shadow-gold-500/30 mt-6 active:scale-95 transition-transform">
+                     رزرو آنلاین <i class="fa-solid fa-arrow-left mr-2 text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center relative px-4 overflow-hidden pt-24 pb-12">
+        <!-- Floating Elements (Adjusted for mobile) -->
+        <div class="blob bg-gold-600 w-64 h-64 md:w-96 md:h-96 rounded-full top-20 left-10 md:left-20 blur-[80px] md:blur-[120px]"></div>
+        <div class="blob bg-blue-600 w-64 h-64 md:w-96 md:h-96 rounded-full bottom-20 right-10 md:right-20 blur-[80px] md:blur-[120px]"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="inline-block mb-4 md:mb-6 px-4 py-1.5 rounded-full border border-gold-500/30 bg-gold-500/10 text-gold-400 text-xs md:text-sm font-bold tracking-wider uppercase animate-pulse">
+                <i class="fa-solid fa-star mr-2 text-xs"></i> استاندارد جهانی PDR
+            </div>
+            
+            <h1 class="text-4xl xs:text-5xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-tight tracking-tight drop-shadow-2xl">
+                هنر بازگشت به <br>
+                <span class="gradient-text text-glow block mt-2">اصالت کارخانه</span>
+            </h1>
+            
+            <p class="text-slate-200 text-base md:text-2xl mb-8 md:mb-12 max-w-sm md:max-w-3xl mx-auto leading-relaxed font-light px-2">
+                مرکز تخصصی صافکاری PDR و احیای رنگ.
+                <br class="hidden xs:block">
+                ارزش سرمایه شما را با تکنولوژی روز حفظ می‌کنیم.
+            </p>
+            
+            <div class="flex flex-col gap-4 justify-center items-center w-full max-w-xs mx-auto md:max-w-none md:flex-row">
+                <a href="#contact" class="w-full md:w-auto bg-gradient-to-r from-gold-500 to-gold-600 text-black font-bold py-3.5 md:py-4 px-10 rounded-xl text-base md:text-lg shadow-lg hover:shadow-gold-500/40 transition-all duration-300 active:scale-95">
+                    دریافت مشاوره رایگان
+                </a>
+                <a href="#gallery" class="w-full md:w-auto glass-card text-white font-bold py-3.5 md:py-4 px-10 rounded-xl text-base md:text-lg hover:bg-white/10 transition-all duration-300 active:scale-95 flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-instagram text-xl"></i> مشاهده نمونه‌کارها
+                </a>
+            </div>
+
+            <!-- Stats in Hero (Mobile Optimized) -->
+            <div class="grid grid-cols-3 gap-2 xs:gap-4 md:gap-8 mt-12 md:mt-20 border-t border-white/10 pt-8 max-w-3xl mx-auto">
+                <div class="p-2">
+                    <div class="text-2xl md:text-3xl font-black text-white">100%</div>
+                    <div class="text-gray-400 text-[10px] md:text-sm mt-1">حفظ رنگ</div>
+                </div>
+                <div class="p-2 border-r border-white/10 border-l md:border-0">
+                    <div class="text-2xl md:text-3xl font-black text-white">+15</div>
+                    <div class="text-gray-400 text-[10px] md:text-sm mt-1">سال تجربه</div>
+                </div>
+                <div class="p-2">
+                    <div class="text-2xl md:text-3xl font-black text-white">24h</div>
+                    <div class="text-gray-400 text-[10px] md:text-sm mt-1">تحویل فوری</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50 hidden md:block">
+            <i class="fa-solid fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-32 relative bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-black mb-4 md:mb-6 text-white">خدمات تخصصی ما</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-lg leading-relaxed px-4">با استفاده از مدرن‌ترین تجهیزات اروپایی، خودروی شما را به روز اول بازمی‌گردانیم.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl hover:bg-white/5 transition-all duration-500 group relative overflow-hidden active:scale-[0.98]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-gold-500/10 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-gold-500/20"></div>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center mb-6 md:mb-8 text-gold-500 text-2xl md:text-3xl shadow-lg border border-white/5 group-hover:scale-110 transition-transform duration-500">
+                        <i class="fa-solid fa-hammer"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white">صافکاری PDR (بدون رنگ)</h3>
+                    <p class="text-slate-400 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
+                        رفع قری‌های تگرگ، ضربات پارکینگی و تصادفات بدون آسیب به رنگ فابریک با میله‌های تخصصی کربنی.
+                    </p>
+                    <ul class="text-xs md:text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500"></i> حفظ ارزش ریالی خودرو</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold-500"></i> بدون نیاز به بتونه</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl hover:bg-white/5 transition-all duration-500 group relative overflow-hidden active:scale-[0.98]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-blue-500/10 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-blue-500/20"></div>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center mb-6 md:mb-8 text-blue-400 text-2xl md:text-3xl shadow-lg border border-white/5 group-hover:scale-110 transition-transform duration-500">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white">نانو سرامیک و محافظت</h3>
+                    <p class="text-slate-400 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
+                        اجرای پوشش نانو سرامیک با سختی 9H و 10H برای ایجاد براقیت شیشه‌ای و محافظت در برابر خط و خش.
+                    </p>
+                    <ul class="text-xs md:text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> آبگریزی فوق‌العاده</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> گارانتی 3 تا 5 ساله</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl hover:bg-white/5 transition-all duration-500 group relative overflow-hidden active:scale-[0.98]" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-purple-500/10 rounded-bl-full -mr-8 -mt-8 transition-all group-hover:bg-purple-500/20"></div>
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-gray-800 to-black rounded-2xl flex items-center justify-center mb-6 md:mb-8 text-purple-400 text-2xl md:text-3xl shadow-lg border border-white/5 group-hover:scale-110 transition-transform duration-500">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-white">لیسه گیری و احیای رنگ</h3>
+                    <p class="text-slate-400 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
+                        ترمیم خط و خش‌های عمیق بدنه با متد روز دنیا (Airbrush) بدون مشخص شدن محل ترمیم و افت قیمت.
+                    </p>
+                    <ul class="text-xs md:text-sm text-gray-500 space-y-2">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> رفع ماتی چراغ‌ها</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> پولیش سه مرحله‌ای</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Process -->
+    <section id="process" class="py-16 md:py-20 bg-black/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-10 md:mb-16 text-white" data-aos="fade-up">مراحل انجام کار</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-10 md:gap-8">
+                <!-- Step 1 -->
+                <div class="relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center border-2 border-gold-500 text-xl md:text-2xl font-bold text-white mb-4 relative z-10 shadow-[0_0_15px_rgba(245,158,11,0.3)]">1</div>
+                    <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-800 -z-0"></div>
+                    <h4 class="text-lg md:text-xl font-bold text-gold-500 mb-2">مشاوره</h4>
+                    <p class="text-gray-400 text-xs md:text-sm">بررسی دقیق آسیب</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center border-2 border-gray-700 text-xl md:text-2xl font-bold text-white mb-4 relative z-10">2</div>
+                    <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-800 -z-0"></div>
+                    <h4 class="text-lg md:text-xl font-bold text-white mb-2">اجرا</h4>
+                    <p class="text-gray-400 text-xs md:text-sm">تخصص و دقت</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center border-2 border-gray-700 text-xl md:text-2xl font-bold text-white mb-4 relative z-10">3</div>
+                    <div class="hidden md:block absolute top-10 right-1/2 w-full h-1 bg-gray-800 -z-0"></div>
+                    <h4 class="text-lg md:text-xl font-bold text-white mb-2">کنترل</h4>
+                    <p class="text-gray-400 text-xs md:text-sm">تست زیر نور</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto bg-gray-800 rounded-full flex items-center justify-center border-2 border-green-500 text-xl md:text-2xl font-bold text-white mb-4 relative z-10 shadow-[0_0_15px_rgba(34,197,94,0.3)]">4</div>
+                    <h4 class="text-lg md:text-xl font-bold text-green-500 mb-2">تحویل</h4>
+                    <p class="text-gray-400 text-xs md:text-sm">با ضمانت رضایت</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section id="gallery" class="py-20 md:py-32 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 px-2">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-4xl font-black text-white mb-2">گالری پروژه ها</h2>
+                    <p class="text-gray-400 text-sm md:text-base">کیفیت، بهترین تبلیغ ماست</p>
+                </div>
+                <div data-aos="fade-left" class="w-full md:w-auto mt-4 md:mt-0">
+                     <button class="w-full md:w-auto text-gold-500 border border-gold-500/30 px-6 py-3 rounded-xl hover:bg-gold-500 hover:text-black transition-all text-sm font-bold flex items-center justify-center">
+                        مشاهده بیشتر در اینستاگرام <i class="fa-brands fa-instagram mr-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-64 md:h-80" data-aos="zoom-in-up">
+                    <img src="https://images.unsplash.com/photo-1626075199616-5b0c74936d33?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 filter brightness-90 md:brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                        <span class="text-gold-500 text-xs font-bold uppercase tracking-widest mb-1">صافکاری PDR</span>
+                        <h3 class="text-white text-lg md:text-xl font-bold">بنز کلاس S</h3>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-64 md:h-80 lg:col-span-2" data-aos="zoom-in-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1600263692888-29a3930e463a?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 filter brightness-90 md:brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                        <span class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-1">سرامیک بدنه</span>
+                        <h3 class="text-white text-lg md:text-xl font-bold">BMW سری 7</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-64 md:h-80 lg:col-span-2" data-aos="zoom-in-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 filter brightness-90 md:brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                        <span class="text-purple-400 text-xs font-bold uppercase tracking-widest mb-1">احیای رنگ</span>
+                        <h3 class="text-white text-lg md:text-xl font-bold">پورشه پانامرا</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-64 md:h-80" data-aos="zoom-in-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 filter brightness-90 md:brightness-75 group-hover:brightness-100">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                        <span class="text-gold-500 text-xs font-bold uppercase tracking-widest mb-1">نقاشی موضعی</span>
+                        <h3 class="text-white text-lg md:text-xl font-bold">تویوتا لندکروز</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 bg-gray-900"></div>
+        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-gradient-to-b md:bg-gradient-to-l from-gray-800 to-transparent opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-card rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border border-white/5">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    
+                    <!-- Contact Info -->
+                    <div class="p-8 md:p-12 bg-gradient-to-br from-gray-900 to-black flex flex-col justify-between relative overflow-hidden order-2 lg:order-1">
+                         <div class="blob bg-gold-600 w-40 h-40 md:w-64 md:h-64 rounded-full top-0 right-0 blur-[80px] md:blur-[100px] opacity-20"></div>
+
+                        <div class="mb-10 lg:mb-0">
+                            <h2 class="text-2xl md:text-3xl font-black text-white mb-2">درخواست مشاوره</h2>
+                            <p class="text-gray-400 mb-8 md:mb-10 text-sm md:text-lg">برای رزرو وقت و استعلام قیمت، عکس خودرو را ارسال کنید.</p>
+
+                            <div class="space-y-6 md:space-y-8">
+                                <div class="flex items-center gap-4 md:gap-6 group">
+                                    <div class="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-2xl flex items-center justify-center text-gold-500 text-xl md:text-2xl border border-white/10 group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base md:text-lg mb-1">آدرس مجموعه</h4>
+                                        <p class="text-gray-400 text-sm">بعدا دقیق مینیویسیم اینو</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-4 md:gap-6 group">
+                                    <div class="w-12 h-12 md:w-14 md:h-14 bg-white/5 rounded-2xl flex items-center justify-center text-gold-500 text-xl md:text-2xl border border-white/10 group-hover:bg-gold-500 group-hover:text-black transition-all">
+                                        <i class="fa-solid fa-phone-volume"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold text-base md:text-lg mb-1">تلفن‌های تماس</h4>
+                                        <p class="text-gray-400 text-sm">بعدا دقیق مینیویسیم اینو</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 lg:mt-12 flex gap-4">
+                            <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all"><i class="fa-brands fa-instagram text-xl"></i></a>
+                            <a href="#" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-green-500 hover:border-green-500 transition-all"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="p-6 md:p-12 bg-gray-800/50 backdrop-blur-sm order-1 lg:order-2">
+                        <form onsubmit="event.preventDefault();" class="space-y-4 md:space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-xs md:text-sm text-gray-400">نام شما</label>
+                                    <input type="text" class="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 md:py-4 text-white focus:outline-none focus:border-gold-500 transition-all focus:ring-1 focus:ring-gold-500 text-sm md:text-base" placeholder="نام خانوادگی">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-xs md:text-sm text-gray-400">شماره موبایل</label>
+                                    <input type="tel" class="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 md:py-4 text-white focus:outline-none focus:border-gold-500 transition-all focus:ring-1 focus:ring-gold-500 text-sm md:text-base" placeholder="09xxxxxxxxx">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs md:text-sm text-gray-400">خدمات مورد نظر</label>
+                                <select class="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 md:py-4 text-white focus:outline-none focus:border-gold-500 transition-all text-sm md:text-base">
+                                    <option>صافکاری PDR</option>
+                                    <option>سرامیک بدنه</option>
+                                    <option>لیسه گیری</option>
+                                    <option>سایر موارد</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs md:text-sm text-gray-400">توضیحات تکمیلی</label>
+                                <textarea rows="4" class="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 md:py-4 text-white focus:outline-none focus:border-gold-500 transition-all focus:ring-1 focus:ring-gold-500 text-sm md:text-base" placeholder="توضیح دهید خودرو چه مشکلی دارد..."></textarea>
+                            </div>
+                            <button class="w-full bg-gold-500 hover:bg-gold-600 text-black font-bold py-3.5 md:py-4 rounded-xl shadow-lg shadow-gold-500/20 transition-all transform hover:-translate-y-1 active:scale-95 text-base md:text-lg">
+                                ثبت درخواست مشاوره
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 md:py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-car-burst text-gold-500 text-xl md:text-2xl"></i>
+                <span class="font-bold text-lg md:text-xl text-white">عمران <span class="text-gold-500">سنتر</span></span>
+            </div>
+            
+            <div class="text-gray-500 text-xs md:text-sm text-center md:text-right">
+                طراحی شده با <i class="fa-solid fa-heart text-red-500 animate-pulse"></i> برای حرفه‌ای‌ها
+            </div>
+        </div>
     </footer>
-  </div>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS (Optimized settings for mobile)
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+            disable: 'mobile' // Optional: remove this if you want animations on mobile too. I kept it enabled but safe.
+        });
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            menu.classList.toggle('hidden');
+            
+            if (!menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-bars-staggered');
+                icon.classList.add('fa-xmark');
+                icon.classList.add('rotate-90');
+            } else {
+                icon.classList.add('fa-bars-staggered');
+                icon.classList.remove('fa-xmark');
+                icon.classList.remove('rotate-90');
+            }
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const navContainer = document.getElementById('nav-container');
+            
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-lg', 'bg-dark-900/95');
+                navbar.classList.remove('bg-dark-900/80'); // Clean up initial state if needed
+                navContainer.classList.remove('h-24', 'md:h-24');
+                navContainer.classList.add('h-16', 'md:h-20');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-dark-900/95');
+                navbar.classList.add('bg-dark-900/80');
+                navContainer.classList.add('h-24', 'md:h-24');
+                navContainer.classList.remove('h-16', 'md:h-20');
+            }
+        });
+    </script>
 </body>
 </html>
